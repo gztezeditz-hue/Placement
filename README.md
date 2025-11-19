@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DarpanWear Order</title>
+<style>
+body { font-family: Arial, sans-serif; margin:0; background:#000; color:#fff; }
+
+header {
+    background:#111;
+    color:#f4c542;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.logo {
+    font-size:40px;
+    margin-right:10px;
+}
+
+form {
+    max-width:420px;
+    margin:30px auto;
+    background:#111;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(255,215,0,0.35);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+label {
+    font-size:15px;
+    color:#f4c542;
+    font-weight:bold;
+}
+
+input, select {
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:6px;
+    background:#222;
+    color:#fff;
+    font-size:15px;
+}
+
+input:focus, select:focus {
+    outline:2px solid #f4c542;
+}
+
+.send {
+    width:100%;
+    padding:14px;
+    background:#f4c542;
+    color:#000;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:10px;
+    transition:0.3s;
+}
+
+.send:hover {
+    background:#ffdb4d;
+}
+
+.popup {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup-box {
+    background:#111;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    color:#f4c542;
+    font-size:20px;
+    box-shadow:0 0 20px rgba(255,215,0,0.4);
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    from { transform:scale(0.6); opacity:0; }
+    to { transform:scale(1); opacity:1; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <span class="logo">🔥</span> DarpanWear Order Now
+</header>
+
+<form onsubmit="sendToWhatsApp(event)">
+    
+    <label>Product Name</label>
+    <input id="product" required>
+
+    <label>Name</label>
+    <input id="name" required>
+
+    <label>Phone Number</label>
+    <input id="phone" required>
+
+    <label>State</label>
+    <input id="state" required>
+
+    <label>City</label>
+    <input id="city" required>
+
+    <label>Village</label>
+    <input id="village" required>
+
+    <label>Pincode</label>
+    <input id="pincode" required>
+
+    <label>Payment Method</label>
+    <select id="payment" required>
+        <option value="Cash on Delivery">Cash on Delivery</option>
+        <option value="Prepaid">Prepaid</option>
+    </select>
+
+    <button class="send" type="submit">Send to WhatsApp</button>
+</form>
+
+<div id="popup" class="popup">
+    <div class="popup-box">
+        ✔ Order Sent Successfully!
+    </div>
+</div>
+
+
+<script>
+function sendToWhatsApp(e){
+    e.preventDefault();
+
+    const product = document.getElementById('product').value;
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const state = document.getElementById('state').value;
+    const city = document.getElementById('city').value;
+    const village = document.getElementById('village').value;
+    const pincode = document.getElementById('pincode').value;
+    const payment = document.getElementById('payment').value;
+
+    const orderId = "DW-" + Math.floor(Math.random()*90000 + 10000);
+    const now = new Date().toLocaleString();
+
+    const msg = `🚨⚠️ Alert: Darpan Wears New Order Details
+
+Order ID: ${orderId}
+Date/Time: ${now}
+
+Product: ${product}
+Name: ${name}
+Phone: ${phone}
+State: ${state}
+City: ${city}
+Village: ${village}
+Pincode: ${pincode}
+Payment Method: ${payment}`;
+
+    const url = "https://wa.me/9332307996?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+
+    document.getElementById('popup').style.display = 'flex';
+    setTimeout(()=>{ document.getElementById('popup').style.display = 'none'; }, 2000);
+}
+</script>
+
+</body>
+</html>
